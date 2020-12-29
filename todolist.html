@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<script src="https://kit.fontawesome.com/5141e8d9a2.js" crossorigin="anonymous"></script>
+
+    <style>
+            *{
+                padding: 0;
+                margin: 0;
+            } 
+            .box{
+                position: relative;
+                width: 600px;
+                height: 400px;
+                background: blue;
+            }
+            #inputedtext{
+                width: 80px;
+                padding: 10px 20px;
+            }
+            .trash{
+                color: red;
+                font-size: 25px;
+                padding: 10px;
+            }
+            .times{
+                padding:10px;
+            }
+             #customers {
+                  font-family: Arial, Helvetica, sans-serif;
+                  border-collapse: collapse;
+                 box-shadow: 10px 10px 5px #ddd;
+                }
+
+            #customers td, #customers th {
+              border: 1px solid white;
+            }
+            #customers tr:hover {background-color: #ddd;}
+
+            #customers th {
+              padding-left: 5px;
+              width: 300px;
+              padding-top: 12px;
+              padding-bottom: 12px;
+              text-align: left;
+              background-color: #202020;
+              color: white;
+            }
+    </style>
+</head>
+<body>
+   <div class="box">
+   <input id="inputedtext" type="text" placeholder="Enter the task need to be done">
+   <button type="submit" class="itemtoadd"><i class="fas fa-plus-circle"></i></button>
+ 
+    <table class="table" id="customers">
+    </table>
+   </div>
+
+    <script>
+        let locally = localStorage.getItem("todolist");
+        let tablebody = document.querySelector("#customers");
+        let btn = document.querySelector(".itemtoadd");
+        btn.addEventListener("click",additems);
+        tablebody.innerHTML="";
+        let time = formatAMPM(new Date);
+        let inputedtext =document.getElementById("inputedtext");
+
+        
+        
+        
+        let localsettings =[];
+        for(let i=0;i<=localsettings.length;i++){
+            localsettings.push(time,inputedtext);
+        }
+        
+        
+        
+        
+        
+        
+        function additems(){
+            let inputedtext =document.getElementById("inputedtext");
+            if (inputedtext.value!=""){
+                tablebody.innerHTML +=` <tr>                          
+                                           <th class="text">${inputedtext.value}</th>
+                                           <td><i onclick="removeItem(this)" class="trash fas fa-trash"></i>
+                                           </td>  
+                                           <td class="times">${time}</td>
+                                        </tr>`;
+
+                inputedtext.value='';
+            }else{
+                alert("please enter the fields");
+            }
+ }
+        function removeItem(el_to_remove){
+            console.log(el_to_remove.parentElement.parentElement);
+            el_to_remove.parentElement.parentElement.style.display="none";
+        }
+        
+        function formatAMPM(date) {
+          var hours = date.getHours();
+          var minutes = date.getMinutes();
+          var ampm = hours >= 12 ? 'pm' : 'am';
+          hours = hours % 12;
+          hours = hours ? hours : 12; // the hour '0' should be '12'
+          minutes = minutes < 10 ? '0'+minutes : minutes;
+          var strTime = hours + ':' + minutes + ' ' + ampm;
+          return strTime;
+        }
+
+    </script>
+</body>
+</html>
